@@ -6,7 +6,7 @@ export default function ShareX({ user, open, setOpen }) {
 
     const config = {
       Version: '14.1.0',
-      Name: `Zipline - ${hostname} - ${values.type === 'upload-file' ? 'File' : 'URL'}`,
+      Name: `l7g - ${hostname} - ${values.type === 'upload-file' ? 'File' : 'URL'}`,
       DestinationType: 'ImageUploader, TextUploader, FileUploader',
       RequestMethod: 'POST',
       RequestURL: `${
@@ -89,7 +89,7 @@ export default function ShareX({ user, open, setOpen }) {
       'href',
       'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(config, null, '\t')),
     );
-    pseudoElement.setAttribute('download', `zipline${values.type === 'upload-file' ? '' : '-url'}.sxcu`);
+    pseudoElement.setAttribute('download', `l7g${values.type === 'upload-file' ? '' : '-url'}.sxcu`);
     pseudoElement.style.display = 'none';
     document.body.appendChild(pseudoElement);
     pseudoElement.click();
