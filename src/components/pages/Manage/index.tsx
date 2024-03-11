@@ -365,10 +365,6 @@ export default function Manage({ oauth_registration, oauth_providers: raw_oauth_
   return (
     <>
       <Title>Profile<Title>
-      <MutedText size='md'>
-       {' '}
-        <AnchorNext'>Discord
-      </MutedText>
 
       <TextInput
         rightSection={
@@ -511,113 +507,7 @@ export default function Manage({ oauth_registration, oauth_providers: raw_oauth_
         </Box>
       )}
 
-      <Box my='md'>
-        <Title>Avatar</Title>
-        <FileInput
-          placeholder='Click to upload a file'
-          id='file'
-          description='Add a custom avatar or leave blank for none'
-          accept='image/png,image/jpeg,image/gif'
-          value={file}
-          onChange={handleAvatarChange}
-        />
-        <Card mt='md'>
-          <Text>Preview:</Text>
-          <Button
-            leftIcon={
-              fileDataURL ? (
-                <Image src={fileDataURL} height={32} width={32} radius='md' />
-              ) : (
-                <IconUserCog size='1rem' />
-              )
-            }
-            size='xl'
-            p='sm'
-            variant='subtle'
-            color='gray'
-            compact
-          >
-            {user.username}
-          </Button>
-        </Card>
 
-        <Group position='right' my='md' grow={useMediaQuery('(max-width: 768px)')}>
-          <Button
-            onClick={() => {
-              setFile(null);
-              setFileDataURL(null);
-            }}
-            color='red'
-          >
-            Reset
-          </Button>
-          <Button onClick={saveAvatar}>Save Avatar</Button>
-        </Group>
-      </Box>
-
-      <Box my='md'>
-        <Title>Manage Data</Title>
-        <MutedText size='md'>Delete, or export your data into a zip file.</MutedText>
-      </Box>
-
-      <Group my='md' grow={useMediaQuery('(max-width: 768px)')}>
-        <Button onClick={openDeleteModal} rightIcon={<IconPhotoMinus size='1rem' />} color='red'>
-          Delete All Data
-        </Button>
-        <ExportDataTooltip>
-          <Button onClick={exportData} rightIcon={<IconFileZip size='1rem' />}>
-            Export Data
-          </Button>
-        </ExportDataTooltip>
-        <Button onClick={getExports} rightIcon={<IconReload size='1rem' />}>
-          Refresh
-        </Button>
-      </Group>
-      <Card mt='md'>
-        {exports && exports.length ? (
-          <SmallTable
-            columns={[
-              { id: 'name', name: 'Name' },
-              { id: 'date', name: 'Date' },
-              { id: 'size', name: 'Size' },
-            ]}
-            rows={
-              exports
-                ? exports.map((x, i) => ({
-                    name: (
-                      <Anchor target='_blank' href={'/api/user/export?name=' + x.full}>
-                        Export {i + 1}
-                      </Anchor>
-                    ),
-                    date: x.date.toLocaleString(),
-                    size: bytesToHuman(x.size),
-                  }))
-                : []
-            }
-          />
-        ) : (
-          <Text>No exports yet</Text>
-        )}
-      </Card>
-
-      {user.administrator && (
-        <Box mt='md'>
-          <Title>Server</Title>
-          <Group my='md' grow={useMediaQuery('(max-width: 768px)')}>
-            <Button size='md' onClick={forceUpdateStats} color='red' rightIcon={<IconReload size='1rem' />}>
-              Force Update Stats
-            </Button>
-            <Button
-              size='md'
-              onClick={() => setClrStorOpen(true)}
-              color='red'
-              rightIcon={<IconTrash size='1rem' />}
-            >
-              Delete all uploads
-            </Button>
-          </Group>
-        </Box>
-      )}
 
       <Title my='md'>Uploaders</Title>
       <Group>
@@ -631,7 +521,7 @@ export default function Manage({ oauth_registration, oauth_providers: raw_oauth_
             },
           }}
         >
-          Generate ShareX Config
+         ShareX Config
         </Button>
         <Button
           size='xl'
@@ -643,7 +533,7 @@ export default function Manage({ oauth_registration, oauth_providers: raw_oauth_
             },
           }}
         >
-          Generate Flameshot Script
+         Flameshot Script
         </Button>
       </Group>
 
