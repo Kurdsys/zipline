@@ -364,11 +364,8 @@ export default function Manage({ oauth_registration, oauth_providers: raw_oauth_
 
   return (
     <>
-      <Title>Manage User</Title>
-      <MutedText size='md'>
-        Want to use variables in embed text? Visit{' '}
-        <AnchorNext href='https://zipline.diced.sh/docs/guides/variables'>the docs</AnchorNext> for variables
-      </MutedText>
+      <Title>Profile</Title>
+
 
       <TextInput
         rightSection={
@@ -447,179 +444,11 @@ export default function Manage({ oauth_registration, oauth_providers: raw_oauth_
         </Group>
       </form>
 
-      {totp_enabled && (
-        <Box my='md'>
-          <Title>Two Factor Authentication</Title>
-          <MutedText size='md'>
-            {totpEnabled
-              ? 'You have two factor authentication enabled.'
-              : 'You do not have two factor authentication enabled.'}
-          </MutedText>
+  
 
-          <Button
-            size='lg'
-            my='sm'
-            onClick={() => setTotpOpen(true)}
-            sx={{
-              '@media screen and (max-width: 768px)': {
-                width: '100%',
-              },
-            }}
-          >
-            {totpEnabled ? 'Disable' : 'Enable'} Two Factor Authentication
-          </Button>
 
-          <TotpModal
-            opened={totpOpen}
-            onClose={() => setTotpOpen(false)}
-            deleteTotp={totpEnabled}
-            setUser={setUser}
-          />
-        </Box>
-      )}
-
-      {oauth_registration && (
-        <Box my='md'>
-          <Title>OAuth</Title>
-          <MutedText size='md'>Link your account with an OAuth provider.</MutedText>
-
-          <Group>
-            {oauth_providers
-              .filter(
-                (x) =>
-                  !user.oauth?.map(({ provider }) => provider.toLowerCase()).includes(x.name.toLowerCase()),
-              )
-              .map(({ link_url, name, Icon }, i) => (
-                <Button key={i} size='lg' leftIcon={<Icon />} component={Link} href={link_url} my='sm'>
-                  Link account with {name}
-                </Button>
-              ))}
-
-            {user?.oauth?.map(({ provider }, i) => (
-              <Button
-                key={i}
-                onClick={() => handleOauthUnlink(provider)}
-                size='lg'
-                leftIcon={<IconTrash size='1rem' />}
-                my='sm'
-                color='red'
-              >
-                Unlink account with {capitalize(provider)}
-              </Button>
-            ))}
-          </Group>
-        </Box>
-      )}
-
-      <Box my='md'>
-        <Title>Avatar</Title>
-        <FileInput
-          placeholder='Click to upload a file'
-          id='file'
-          description='Add a custom avatar or leave blank for none'
-          accept='image/png,image/jpeg,image/gif'
-          value={file}
-          onChange={handleAvatarChange}
-        />
-        <Card mt='md'>
-          <Text>Preview:</Text>
-          <Button
-            leftIcon={
-              fileDataURL ? (
-                <Image src={fileDataURL} height={32} width={32} radius='md' />
-              ) : (
-                <IconUserCog size='1rem' />
-              )
-            }
-            size='xl'
-            p='sm'
-            variant='subtle'
-            color='gray'
-            compact
-          >
-            {user.username}
-          </Button>
-        </Card>
-
-        <Group position='right' my='md' grow={useMediaQuery('(max-width: 768px)')}>
-          <Button
-            onClick={() => {
-              setFile(null);
-              setFileDataURL(null);
-            }}
-            color='red'
-          >
-            Reset
-          </Button>
-          <Button onClick={saveAvatar}>Save Avatar</Button>
-        </Group>
-      </Box>
-
-      <Box my='md'>
-        <Title>Manage Data</Title>
-        <MutedText size='md'>Delete, or export your data into a zip file.</MutedText>
-      </Box>
-
-      <Group my='md' grow={useMediaQuery('(max-width: 768px)')}>
-        <Button onClick={openDeleteModal} rightIcon={<IconPhotoMinus size='1rem' />} color='red'>
-          Delete All Data
-        </Button>
-        <ExportDataTooltip>
-          <Button onClick={exportData} rightIcon={<IconFileZip size='1rem' />}>
-            Export Data
-          </Button>
-        </ExportDataTooltip>
-        <Button onClick={getExports} rightIcon={<IconReload size='1rem' />}>
-          Refresh
-        </Button>
-      </Group>
-      <Card mt='md'>
-        {exports && exports.length ? (
-          <SmallTable
-            columns={[
-              { id: 'name', name: 'Name' },
-              { id: 'date', name: 'Date' },
-              { id: 'size', name: 'Size' },
-            ]}
-            rows={
-              exports
-                ? exports.map((x, i) => ({
-                    name: (
-                      <Anchor target='_blank' href={'/api/user/export?name=' + x.full}>
-                        Export {i + 1}
-                      </Anchor>
-                    ),
-                    date: x.date.toLocaleString(),
-                    size: bytesToHuman(x.size),
-                  }))
-                : []
-            }
-          />
-        ) : (
-          <Text>No exports yet</Text>
-        )}
-      </Card>
-
-      {user.administrator && (
-        <Box mt='md'>
-          <Title>Server</Title>
-          <Group my='md' grow={useMediaQuery('(max-width: 768px)')}>
-            <Button size='md' onClick={forceUpdateStats} color='red' rightIcon={<IconReload size='1rem' />}>
-              Force Update Stats
-            </Button>
-            <Button
-              size='md'
-              onClick={() => setClrStorOpen(true)}
-              color='red'
-              rightIcon={<IconTrash size='1rem' />}
-            >
-              Delete all uploads
-            </Button>
-          </Group>
-        </Box>
-      )}
-
-      <Title my='md'>Uploaders</Title>
+    
+      <Title my='md'>Config</Title>
       <Group>
         <Button
           size='xl'
