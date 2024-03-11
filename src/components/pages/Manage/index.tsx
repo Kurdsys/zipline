@@ -422,8 +422,8 @@ export default function Manage({ oauth_registration, oauth_providers: raw_oauth_
         <TextInput
           id='domains'
           label='Domains'
-          description='A list of domains separated by commas. These domains will be used to randomly output a domain when uploading. This is optional.'
-          placeholder='https://example.com, https://example2.com'
+          description=''
+          placeholder='https://l7g.lol'
           my='sm'
           {...form.getInputProps('domains')}
         />
