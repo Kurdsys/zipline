@@ -130,7 +130,7 @@ export default function Dashboard({ disableMediaPreview, exifEnabled, compress }
         />
       )}
 
-      <Title>Welcome back, {user?.username}</Title>
+      <Title>Hi, {user?.username}</Title>
       <MutedText size='md'>
         You have <b>{numFiles === 0 ? '...' : numFiles}</b> files
       </MutedText>
